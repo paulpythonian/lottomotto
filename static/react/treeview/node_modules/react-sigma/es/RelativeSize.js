@@ -1,0 +1,33 @@
+import React from 'react';
+import '../sigma/plugins.relativeSize';
+
+/**
+
+RelativeSize component, interface for RelativeSize sigma plugin.
+It supposes that sigma graph is already in place, therefore component should not be
+mounted until graph is available. It can be used within Sigma component if graph is
+preloaded, or within loader component, like NeoCypher.
+
+Sets nodes sizes corresponding its degree.
+
+ @param {number} initialSize  start size for every node, will be multiplied by Math.sqrt(node.degree)
+
+**/
+
+class RelativeSize extends React.Component {
+
+	constructor(props) {
+		super(props);
+
+		this.render = () => null;
+
+		sigma.plugins.relativeSize(this.props.sigma, this.props.initialSize);
+	}
+
+}
+
+RelativeSize.propTypes = {
+	initialSize: require('prop-types').number.isRequired,
+	sigma: typeof sigma === 'function' ? require('prop-types').instanceOf(sigma) : require('prop-types').any
+};
+export default RelativeSize;

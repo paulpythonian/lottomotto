@@ -1,0 +1,188 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container-fluid">
+                <div class="row">
+                    <!-- Column -->
+                    <div class="col-lg-4 col-xlg-3 col-md-5">
+
+                        <div class="card">
+                            <div class="card-body"> <small class="text-muted">Email address </small>
+                                <h6>{{email}}</h6> <small class="text-muted p-t-30 db">Phone</small>
+                                <h6>{{phone}}</h6> <small class="text-muted p-t-30 db">Address</small>
+                                <h6>{{address}}</h6>
+
+                                <br/>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Column -->
+                    <!-- Column -->
+                    <div class="col-lg-8 col-xlg-9 col-md-7">
+                        <div class="card">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs profile-tab" role="tablist">
+                                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#profile" role="tab">Profile</a> </li>
+                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#contactInfo" role="tab">Detail Info</a> </li>
+                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#settings" role="tab">Settings</a> </li>
+                            </ul>
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+
+                                <!-- tab-->
+                                <div class="tab-pane active" id="profile" role="tabpanel">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-4 col-xs-6 b-r"> <strong>Full Name</strong>
+                                                <br>
+                                                <p class="text-muted">{{firstname}} {{lastname}}</p>
+                                            </div>
+                                            <div class="col-md-4 col-xs-6 b-r"> <strong>Mobile</strong>
+                                                <br>
+                                                <p class="text-muted">{{phone}}</p>
+                                            </div>
+                                            <div class="col-md-4 col-xs-6 b-r"> <strong>Email</strong>
+                                                <br>
+                                                <p class="text-muted">{{email}}</p>
+                                            </div>
+
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-md-4 col-xs-6 b-r"> <strong>Date of Birth</strong>
+                                                <br>
+                                                <p class="text-muted">{{firstname}} {{lastname}}</p>
+                                            </div>
+                                            <div class="col-md-4 col-xs-6 b-r"> <strong>Gender</strong>
+                                                <br>
+                                                <p class="text-muted">{% if gender=="" %} N/A {% else %} {{gender}} {% endif %}</p>
+                                            </div>
+                                            <div class="col-md-4 col-xs-6 b-r"> <strong>SSN</strong>
+                                                <br>
+                                                <p class="text-muted">{% if ssn=="" %} N/A {% else %} {{ssn}} {% endif %}</p>
+                                            </div>
+
+                                        </div>
+                                        <hr>
+
+
+
+
+
+
+
+                                    </div>
+                                </div>
+
+
+                                <div class="tab-pane" id="contactInfo" role="tabpanel">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-4 col-xs-6 b-r"> <strong> Address</strong>
+                                                <br>
+                                                <p class="text-muted">{{address}}</p>
+                                            </div>
+                                            <div class="col-md-3 col-xs-6 b-r"> <strong>City</strong>
+                                                <br>
+                                                <p class="text-muted">{{city}}</p>
+                                            </div>
+                                            <div class="col-md-3 col-xs-6 b-r"> <strong>State</strong>
+                                                <br>
+                                                <p class="text-muted">{{state}}</p>
+                                            </div>
+                                            <div class="col-md-2 col-xs-6 b-r"> <strong>Zipcode</strong>
+                                                <br>
+                                                <p class="text-muted">{{zipcode}}</p>
+                                            </div>
+
+                                        </div>
+                                        <hr>
+
+                                        <div class="row">
+                                            <div class="col-md-4 col-xs-6 b-r"> <strong> Name of Bank</strong>
+                                                <br>
+                                                <p class="text-muted">{{nameofbank}}</p>
+                                            </div>
+                                            <div class="col-md-4 col-xs-6 b-r"> <strong>Branch Number</strong>
+                                                <br>
+                                                <p class="text-muted">{{branchnumber}}</p>
+                                            </div>
+                                            <div class="col-md-4 col-xs-6 b-r"> <strong>Bank Acc No</strong>
+                                                <br>
+                                                <p class="text-muted">{{bankaccountnumber}}</p>
+                                            </div>
+
+
+                                        </div>
+
+
+
+
+
+
+
+                                    </div>
+                                </div>
+
+
+                                <div class="tab-pane" id="settings" role="tabpanel">
+                                    <div class="card-body">
+                                        <form class="form-horizontal form-material">
+                                            <div class="form-group">
+                                                <label class="col-md-12">Full Name</label>
+                                                <div class="col-md-12">
+                                                    <input type="text" placeholder="Johnathan Doe" class="form-control form-control-line">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="example-email" class="col-md-12">Email</label>
+                                                <div class="col-md-12">
+                                                    <input type="email" placeholder="johnathan@admin.com" class="form-control form-control-line" name="example-email" id="example-email">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-12">Password</label>
+                                                <div class="col-md-12">
+                                                    <input type="password" value="password" class="form-control form-control-line">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-12">Phone No</label>
+                                                <div class="col-md-12">
+                                                    <input type="text" placeholder="123 456 7890" class="form-control form-control-line">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-12">Message</label>
+                                                <div class="col-md-12">
+                                                    <textarea rows="5" class="form-control form-control-line"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-12">Select Country</label>
+                                                <div class="col-sm-12">
+                                                    <select class="form-control form-control-line">
+                                                        <option>London</option>
+                                                        <option>India</option>
+                                                        <option>Usa</option>
+                                                        <option>Canada</option>
+                                                        <option>Thailand</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    <button class="btn btn-success">Update Profile</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Column -->
+                </div>
+    </div>
+
+{% endblock %}

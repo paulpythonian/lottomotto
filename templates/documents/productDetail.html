@@ -1,0 +1,89 @@
+{% extends "layout.html" %}
+
+
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <div class="row page-titles">
+
+        <h2>Coming Soon...</h2>
+
+    </div>
+</div>
+
+
+
+
+{% endblock %}
+
+
+{% block footer %}
+
+
+    <!--stickey kit -->
+    <script src="{{ url_for('static', filename='assets/plugins/sticky-kit-master/dist/sticky-kit.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/plugins/sparkline/jquery.sparkline.min.js') }}"></script>
+
+        <!--Custom JavaScript -->
+    <script src="{{url_for('static', filename='js/custom.min.js') }}"></script>
+    <script src="{{url_for('static', filename='js/sidebar.min.js') }}"></script>
+
+
+        <script>
+    // This is for the sticky sidebar
+    $(".stickyside").stick_in_parent({
+        offset_top: 100
+    });
+    $('.stickyside a').click(function() {
+        $('html, body').animate({
+            scrollTop: $($(this).attr('href')).offset().top - 100
+        }, 500);
+        return false;
+    });
+    // This is auto select left sidebar
+    // Cache selectors
+    // Cache selectors
+    var lastId,
+        topMenu = $(".stickyside"),
+        topMenuHeight = topMenu.outerHeight(),
+        // All list items
+        menuItems = topMenu.find("a"),
+        // Anchors corresponding to menu items
+        scrollItems = menuItems.map(function() {
+            var item = $($(this).attr("href"));
+            if (item.length) {
+                return item;
+            }
+        });
+
+    // Bind click handler to menu items
+
+
+    // Bind to scroll
+    $(window).scroll(function() {
+        // Get container scroll position
+        var fromTop = $(this).scrollTop() + topMenuHeight - 250;
+
+        // Get id of current scroll item
+        var cur = scrollItems.map(function() {
+            if ($(this).offset().top < fromTop)
+                return this;
+        });
+        // Get the id of the current element
+        cur = cur[cur.length - 1];
+        var id = cur && cur.length ? cur[0].id : "";
+
+        if (lastId !== id) {
+            lastId = id;
+            // Set/remove active class
+            menuItems
+                .removeClass("active")
+                .filter("[href='#" + id + "']").addClass("active");
+        }
+    });
+    </script>
+
+
+{% endblock %}

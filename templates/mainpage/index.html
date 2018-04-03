@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+
+
+{% block content %}
+<div id="react" class="container-fluid"></div>
+
+
+
+
+<script>
+    window.rank = {{ rank }}
+</script>
+
+<script src="{{ url_for('static', filename='./react/home/dist/bundle.js',) }}"></script>
+{% endblock %}

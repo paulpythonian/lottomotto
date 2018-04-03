@@ -1,0 +1,249 @@
+{% extends "layout.html" %}
+
+
+
+{% block content %}
+<script type="text/javascript" src="{{ url_for('static', filename='js/vis/vis.js') }}"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='js/vis/vis-network.min.css') }}" type="text/css">
+
+
+
+<style type="text/css">
+    #mynetwork {
+        width: 100%;
+        height: 900px;
+        border: 1px solid lightgray;
+    }
+    #ref {
+      background: red;
+      width: 100px;
+      height: 100px;
+    }
+
+    #pop {
+      background: green;
+      width: 100px;
+      height: 100px;
+    }
+    
+    #tooltip{
+        position: absolute;
+        display: none;
+        background: #f2f4f8;
+        color: black;
+
+        z-index: 999999;
+    }
+
+</style>
+
+
+
+
+
+
+<div class="container-fluid">
+
+    <div id="mynetwork" ></div>
+    <div id="tooltip">
+        <span></span>
+    </div>
+</div>
+
+
+
+</div>
+
+
+
+
+<script type="text/javascript">
+
+        var nodes = null;
+        var edges = null;
+        var network = null;
+
+        function destroy() {
+            if (network !== null) {
+                network.destroy();
+                network = null;
+            }
+        }
+
+        function draw(dataNodes, dataEdges) {
+            destroy();
+            nodes = [];
+            edges = [];
+
+            nodes = dataNodes;
+            edges = dataEdges;
+
+
+
+          var changeChosenNodeShadowColor =
+            function(values, id, selected, hovering) {
+              values.shadowColor = "#ff0000";
+            }
+
+
+
+
+            // create a network
+            var container = document.getElementById('mynetwork');
+            var data = {
+                nodes: nodes,
+                edges: edges
+            };
+
+            var options = {
+                edges: {
+                    smooth: {
+                        type: 'cubicBezier',
+                        forceDirection: 'vertical',
+                        roundness: 0.5
+                    }
+                },
+                layout: {
+                    hierarchical: {
+                        direction: 'UD'
+                    }
+                },
+                physics: false,
+                groups: {
+                    newUsers: {
+                        shape: 'icon',
+                        icon: {
+                            face: 'FontAwesome',
+                            code: '\uf0c0',
+                            size: 20,
+                            color: '#57169a'
+                        }
+                    },
+                    users: {
+                        shape: 'icon',
+                        icon: {
+                            face: 'FontAwesome',
+                            code: '\uf007',
+                            size: 20,
+                            color: '#aa00ff'
+                        }
+                    },
+                    organization: {
+                        shape: 'icon',
+                        icon: {
+                            face: 'FontAwesome',
+                            code: '\uf1ad',
+                            size: 50,
+                            color: '#aa00f'
+                        }
+                    }
+                },
+                nodes: {
+
+                    chosen: {label: false, node: changeChosenNodeShadowColor}
+                }
+            };
+            network = new vis.Network(container, data, options);
+
+            network.on("selectNode", function (params) {
+
+                var index = null;
+                console.log(params.nodes[0]);
+
+
+
+                for (var i = 0; i < nodes.length; i++){
+                    if(nodes[i].id == params.nodes[0]){
+                        index = i
+
+                    }
+                }
+
+                console.log(nodes[index])
+
+                console.log(nodes[index].label)
+
+                if(nodes[index].label == "Add User"){
+                    window.open("/signup/" + nodes[index].sponsorid, "_self")
+                }
+
+                if(nodes[index].label != "Add User"){
+                    var tooltipSpan = document.getElementById('tooltip');
+
+                    var x = params.pointer.DOM.x;
+                    var y = params.pointer.DOM.y;
+
+
+                    tooltipSpan.style.top = (y + 50) + 'px';
+                    tooltipSpan.style.left = (x + 50) + 'px';
+                    tooltipSpan.style.color = 'black'
+                    tooltipSpan.style.display = 'flex';
+                    tooltipSpan.style.zIndex = '100000';
+                    tooltipSpan.innerHTML = '<div class="row">' +
+                        '<div class="col-md-6">\n' +
+                        '                        <div class="card card-inverse" style="background-color: #333; border-color: #333;">\n' +
+                        '                            <div class="card-header">\n' +
+                        '                                <h4 class="m-b-0 text-white">' + nodes[index].label +  '</h4></div>\n' +
+                        '                            <div class="card-body">\n' +
+                        '                                <h3 class="card-title">Special title treatment</h3>\n' +
+                        '                                <p class="card-text" style="color: white;">With supporting text below as a natural lead-in to additional content.</p>\n' +
+                        '                                <a href="#" class="btn btn-primary">Go somewhere</a>\n' +
+                        '                            </div>\n' +
+                        '                        </div>\n' +
+                        '                    </div>' +
+                        '</div>'
+                }
+
+
+
+
+
+            });
+            network.on("deselectNode", function (params) {
+                var tooltipSpan = document.getElementById('tooltip');
+
+                tooltipSpan.style.display = 'none'
+
+            });
+
+
+
+        }
+
+
+
+</script>
+
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous">
+
+</script>
+
+<script>
+
+     window.onload =(
+
+            $.ajax({
+                url: '/api/v1/users/{{session}}',
+                dataType: 'json',
+                success: function(data){
+                    console.log(data)
+
+                    draw(data.node, data.edge)
+
+                },
+                error: function (xhr, status, err) {
+                    console.log(err)
+                }
+            })
+
+        )
+</script>
+
+
+<!--<script src="{{ url_for('static', filename='./react/treeview/dist/bundle.js',) }}"></script>-->
+
+
+{% endblock %}
