@@ -46,76 +46,19 @@ def index():
         return render_template('mainpage/index.html', session= session['logged_in'], rank= i['rank'])
 
 
-@app.route('/signup', methods=['GET', 'POST'])
+@app.route('/signup')
 def signup():
-    if request.method == 'POST':
-        users = connection.lottomotto.users
-        api_list = []
-        existing_user = users.find({'$or': [{"username": request.form['username']}, {"email": request.form['email']}]})
-
-        for i in existing_user:
-             api_list.append(str(i))
-        if api_list == []:
-
-            _id = users.insert({
-                "id": random.randint(1,1000000000),
-                "username": request.form['username'],
-                "password": bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt()),
-                "firstname": request.form['firstname'],
-                "lastname": request.form['lastname'],
-                "email": request.form['email'],
-                "phone": request.form['phone'],
-                "leftLeg": 0,
-                "rightLeg": 0,
-                "dateofbirth": "",
-                "gender":"",
-                "ssn": "",
-                "nameofbank": "",
-                "branchnumber": "",
-                "bankaccountnumber": "",
-                "address": "",
-                "city":"",
-                "state":"",
-                'zipcode': 0,
-                "enrollmentDate": time.strftime("%m/%d/%Y"),
-                "rank": 0,
-                "sponsorid": 0,
-                "active": False,
-                "qualified": False,
-                "leftcurrentWeekPV": 0,
-                "rightcurrentWeekPV": 0,
-                "left4weekpv": 0,
-                "right4weekpv":0,
-                "leftlegtotalpersonalcount":0,
-                "rightleftotalpersonalcount":0,
-                "sponsortree":[]
-
-            })
-
-            session.get('logged_in')
-            sponser = []
-            sponser_list = users.find({"username":session['logged_in']})
-            for i in sponser_list:
-                sponser.append(i)
-
-            sponserObject = sponser[0]
-
-            if sponser != []:
-                sponserObject["leftLeg"] = _id
-                users.update({'username':session['logged_in']}, {'$set':sponserObject})
-
-
-
-            return render_template('pages/login.html')
-        return redirect(url_for('signup'))
-    else:
         return render_template("pages/register.html")
 
 
 
-@app.route('/signup/left/<int:sponsoridnumber>', methods=['GET', 'POST'])
-def userLeftSignup(sponsoridnumber):
+@app.route('/signup/<string:sponsoridnumber>', methods=['GET', 'POST'])
+def userSignup(sponsoridnumber):
     if request.method == 'POST':
+
+        sponsorid = int(sponsoridnumber[:-1])
+        sponsorside = sponsoridnumber[-1:]
+
         users = connection.lottomotto.users
         api_list = []
         existing_user = users.find({'$or': [{"username": request.form['username']}, {"email": request.form['email']}]})
@@ -127,11 +70,12 @@ def userLeftSignup(sponsoridnumber):
             id_list.append(i['id'])
 
 
-        while (not (new_user_id in id_list)):
+        while (new_user_id in id_list):
             print("new user id exist")
+            print(new_user_id)
             new_user_id = random.randint(1,1000000000)
 
-        if( not (sponsoridnumber in id_list)):
+        if( not (sponsorid in id_list)):
             print("sponsor id not exist")
             return redirect(url_for('signup'))
 
@@ -142,7 +86,7 @@ def userLeftSignup(sponsoridnumber):
              api_list.append(str(i))
         if api_list == []:
 
-            _id = users.insert({
+            users.insert({
                 "id": new_user_id,
                 "username": request.form['username'],
                 "password": bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt()),
@@ -164,7 +108,7 @@ def userLeftSignup(sponsoridnumber):
                 'zipcode': 0,
                 "enrollmentDate": time.strftime("%m/%d/%Y"),
                 "rank": 0,
-                "sponsorid": 0,
+                "sponsorid": sponsorid,
                 "active": False,
                 "qualified": False,
                 "leftcurrentWeekPV": 0,
@@ -178,133 +122,138 @@ def userLeftSignup(sponsoridnumber):
             })
 
             session.get('logged_in')
-            sponser = []
-            sponser_list = users.find({"username":session['logged_in']})
-            for i in sponser_list:
-                sponser.append(i)
+            sponsor = []
+            sponsor_list = users.find({"id":sponsorid})
+            for i in sponsor_list:
+                sponsor.append(i)
 
-            sponserObject = sponser[0]
+            sponsorObject = sponsor[0]
 
-            if sponser != []:
-                sponserObject["leftLeg"] = _id['id']
-                users.update({'username':session['logged_in']}, {'$set':sponserObject})
+            if sponsor != []:
+                if(sponsorside == "r"):
+                    sponsorObject["rightLeg"] = new_user_id
+                    users.update({'username':sponsorObject['username']}, {'$set':sponsorObject})
+                if(sponsorside == "l"):
+                    sponsorObject["leftLeg"] = new_user_id
+                    users.update({'username': sponsorObject['username']}, {'$set': sponsorObject})
 
+            sponsorTreeObject = []
+            sponsorTreeList = users.find({'username': session['logged_in']})
+            for i in sponsorTreeList:
+                sponsorTreeObject.append(i)
 
-
-            return render_template('pages/login.html')
-        return redirect(url_for('signup'))
-    else:
-        users = connection.lottomotto.users
-        existing_id = users.find()
-        id_list = []
-        print(existing_id)
-        for i in existing_id:
-            id_list.append(i['id'])
-
-        print(id_list)
-
-        if (not (934750842 in id_list)):
-            print("yes")
-
-        return render_template("pages/register.html")
+            if sponsorTreeObject != []:
+                sponsorTree = sponsorTreeObject[0]
+                sponsorTree['sponsortree'].append(new_user_id)
+                users.update({'username': session['logged_in']}, {'$set': sponsorTree})
 
 
-
-
-@app.route('/signup/right/<int:sponsoridnumber>', methods=['GET', 'POST'])
-def userRightSignup(sponsoridnumber):
-    if request.method == 'POST':
-        users = connection.lottomotto.users
-        api_list = []
-        existing_user = users.find({'$or': [{"username": request.form['username']}, {"email": request.form['email']}]})
-        existing_id = users.find()
-        id_list = []
-        new_user_id = random.randint(1,1000000000)
-
-        for i in existing_id:
-            id_list.append(i['id'])
-
-
-        while (not (new_user_id in id_list)):
-            print("new user id exist")
-            new_user_id = random.randint(1,1000000000)
-
-        if( not (sponsoridnumber in id_list)):
-            print("sponsor id not exist")
-            return redirect(url_for('signup'))
-
-
-
-
-        for i in existing_user:
-             api_list.append(str(i))
-        if api_list == []:
-
-            _id = users.insert({
-                "id": new_user_id,
-                "username": request.form['username'],
-                "password": bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt()),
-                "firstname": request.form['firstname'],
-                "lastname": request.form['lastname'],
-                "email": request.form['email'],
-                "phone": request.form['phone'],
-                "leftLeg": 0,
-                "rightLeg": 0,
-                "dateofbirth": "",
-                "gender":"",
-                "ssn": "",
-                "nameofbank": "",
-                "branchnumber": "",
-                "bankaccountnumber": "",
-                "address": "",
-                "city":"",
-                "state":"",
-                'zipcode': 0,
-                "enrollmentDate": time.strftime("%m/%d/%Y"),
-                "rank": 0,
-                "sponsorid": 0,
-                "active": False,
-                "qualified": False,
-                "leftcurrentWeekPV": 0,
-                "rightcurrentWeekPV": 0,
-                "left4weekpv": 0,
-                "right4weekpv":0,
-                "leftlegtotalpersonalcount":0,
-                "rightleftotalpersonalcount":0,
-                "sponsortree":[]
-
-            })
-
-            session.get('logged_in')
-            sponser = []
-            sponser_list = users.find({"username":session['logged_in']})
-            for i in sponser_list:
-                sponser.append(i)
-
-            sponserObject = sponser[0]
-
-            if sponser != []:
-                sponserObject["leftLeg"] = _id['id']
-                users.update({'username':session['logged_in']}, {'$set':sponserObject})
 
 
 
             return render_template('pages/login.html')
         return redirect(url_for('signup'))
     else:
-        users = connection.lottomotto.users
-        existing_id = users.find()
-        id_list = []
-        print(existing_id)
-        for i in existing_id:
-            id_list.append(i['id'])
 
-        print(id_list)
+        return render_template("pages/register.html", url_extention = sponsoridnumber)
 
-        if (not (934750842 in id_list)):
-            print("yes")
 
-        return render_template("pages/register.html")
+
+
+# @app.route('/signup/right/<int:sponsoridnumber>', methods=['GET', 'POST'])
+# def userRightSignup(sponsoridnumber):
+#     if request.method == 'POST':
+#         users = connection.lottomotto.users
+#         api_list = []
+#         existing_user = users.find({'$or': [{"username": request.form['username']}, {"email": request.form['email']}]})
+#         existing_id = users.find()
+#         id_list = []
+#         new_user_id = random.randint(1,1000000000)
+#
+#         for i in existing_id:
+#             id_list.append(i['id'])
+#
+#
+#         while (not (new_user_id in id_list)):
+#             print("new user id exist")
+#             new_user_id = random.randint(1,1000000000)
+#
+#         if( not (sponsoridnumber in id_list)):
+#             print("sponsor id not exist")
+#             return redirect(url_for('signup'))
+#
+#
+#
+#
+#         for i in existing_user:
+#              api_list.append(str(i))
+#         if api_list == []:
+#
+#             _id = users.insert({
+#                 "id": new_user_id,
+#                 "username": request.form['username'],
+#                 "password": bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt()),
+#                 "firstname": request.form['firstname'],
+#                 "lastname": request.form['lastname'],
+#                 "email": request.form['email'],
+#                 "phone": request.form['phone'],
+#                 "leftLeg": 0,
+#                 "rightLeg": 0,
+#                 "dateofbirth": "",
+#                 "gender":"",
+#                 "ssn": "",
+#                 "nameofbank": "",
+#                 "branchnumber": "",
+#                 "bankaccountnumber": "",
+#                 "address": "",
+#                 "city":"",
+#                 "state":"",
+#                 'zipcode': 0,
+#                 "enrollmentDate": time.strftime("%m/%d/%Y"),
+#                 "rank": 0,
+#                 "sponsorid": 0,
+#                 "active": False,
+#                 "qualified": False,
+#                 "leftcurrentWeekPV": 0,
+#                 "rightcurrentWeekPV": 0,
+#                 "left4weekpv": 0,
+#                 "right4weekpv":0,
+#                 "leftlegtotalpersonalcount":0,
+#                 "rightleftotalpersonalcount":0,
+#                 "sponsortree":[]
+#
+#             })
+#
+#             session.get('logged_in')
+#             sponser = []
+#             sponser_list = users.find({"username":session['logged_in']})
+#             for i in sponser_list:
+#                 sponser.append(i)
+#
+#             sponserObject = sponser[0]
+#
+#             if sponser != []:
+#                 sponserObject["leftLeg"] = new_user_id
+#                 users.update({'username':session['logged_in']}, {'$set':sponserObject})
+#
+#
+#
+#             return render_template('pages/login.html')
+#         return redirect(url_for('signup'))
+#     else:
+#         users = connection.lottomotto.users
+#         existing_id = users.find()
+#         id_list = []
+#         print(existing_id)
+#         for i in existing_id:
+#             id_list.append(i['id'])
+#
+#         print(id_list)
+#
+#         if (not (934750842 in id_list)):
+#             print("yes")
+#
+#         return render_template("pages/register.html")
 
 
 
@@ -427,10 +376,9 @@ def userInfoFind(user_id):
     leg = []
 
 
-    newNodeObject = {}
-    newNodeObject['label'] = 'Add User'
-    newNodeObject['group'] = 'newUsers'
-    newUserCounter = 1
+
+    leftnewUserCounter = 1
+    rightnewUserCounter = 2
 
     newEdgeObject = {}
 
@@ -482,17 +430,29 @@ def userInfoFind(user_id):
     if(current_user[0]['leftLeg'] != 0):
         legArray.append(current_user[0]['leftLeg'])
     else:
-        newNodeObject['sponsorid'] = current_user[0]['id']
-        newNodeObject['id'] = newUserCounter
-        newUserCounter += 1
-        legArray.append(newNodeObject)
-    if(current_user[0]['rightLeg'] !=0):
+        leftnewNodeObject = {}
+        leftnewNodeObject['label'] = 'Add User'
+        leftnewNodeObject['group'] = 'newUsers'
+        leftnewNodeObject['sponsorid'] = current_user[0]['id']
+        leftnewNodeObject['id'] = 1
+        leftnewNodeObject['left'] = True
+        leftnewNodeObject['right'] = False
+        legArray.append(leftnewNodeObject)
+
+    print(current_user[0]['rightLeg'])
+
+
+    if(current_user[0]['rightLeg'] != 0):
         legArray.append(current_user[0]['rightLeg'])
     else:
-        newNodeObject['sponsorid'] = current_user[0]['id']
-        newNodeObject['id'] = newUserCounter
-        newUserCounter += 1
-        legArray.append(newNodeObject)
+        rightnewNodeObject = {}
+        rightnewNodeObject['label'] = 'Add User'
+        rightnewNodeObject['group'] = 'newUsers'
+        rightnewNodeObject['sponsorid'] = current_user[0]['id']
+        rightnewNodeObject['id'] = random.randint(1,10000000000000)
+        rightnewNodeObject['right'] = True
+        rightnewNodeObject['left'] = False
+        legArray.append(rightnewNodeObject)
 
 
     db = connection.lottomotto.users
@@ -501,12 +461,16 @@ def userInfoFind(user_id):
 
 
     while legArray != []:
+        print(legArray)
+        print("")
         if type(legArray[0]) == dict:
             print(legArray[0])
             tempNode = {}
             tempNode['id'] = legArray[0]['id']
             tempNode['label'] = legArray[0]['label']
             tempNode['group'] = legArray[0]['group']
+            tempNode['left'] = legArray[0]['left']
+            tempNode['right'] = legArray[0]['right']
             tempNode['sponsorid'] = legArray[0]['sponsorid']
 
             node.append(tempNode)
@@ -515,7 +479,7 @@ def userInfoFind(user_id):
             tempEdge['to'] = legArray[0]['id']
             edge.append(tempEdge)
 
-            legArray = legArray[1:]
+            del legArray[0]
 
         else:
             for i in api_list:
@@ -547,8 +511,10 @@ def userInfoFind(user_id):
                     else:
                         tempObject = {}
                         tempObject['id'] = random.randint(1,1000000000)
-                        tempObject['label'] = newNodeObject['label']
-                        tempObject['group'] = newNodeObject['group']
+                        tempObject['label'] = 'Add User'
+                        tempObject['group'] = 'newUsers'
+                        tempObject['left'] = True
+                        tempObject['right'] = False
                         tempObject['sponsorid'] = i['id']
 
                         legArray.append(tempObject)
@@ -559,14 +525,16 @@ def userInfoFind(user_id):
                     else:
                         tempObject = {}
                         tempObject['id'] = random.randint(1, 1000000000)
-                        tempObject['label'] = newNodeObject['label']
-                        tempObject['group'] = newNodeObject['group']
+                        tempObject['label'] = 'Add User'
+                        tempObject['group'] = 'newUsers'
+                        tempObject['left'] = False
+                        tempObject['right'] = True
                         tempObject['sponsorid'] = i['id']
 
                         legArray.append(tempObject)
 
 
-                    legArray = legArray[1:]
+                    del legArray[0]
                     print('break')
                     break
 
