@@ -186,7 +186,7 @@
                     tooltipSpan.style.display = 'flex';
                     tooltipSpan.style.zIndex = '100000';
                     tooltipSpan.innerHTML = '<div class="row">' +
-                        '<div class="col-md-6">\n' +
+                        '<div class="col-md-12">\n' +
                         '                        <div class="card card-inverse" style="background-color: #333; border-color: #333;">\n' +
                         '                            <div class="card-header">\n' +
                         '                                <h4 class="m-b-0 text-white">' + nodes[index].label +  '</h4></div>\n' +
@@ -232,7 +232,7 @@
      window.onload =(
 
             $.ajax({
-                url: '/api/v1/users/{{session}}',
+                url: '/api/v2/users/{{session}}',
                 dataType: 'json',
                 success: function(data){
                     console.log(data)

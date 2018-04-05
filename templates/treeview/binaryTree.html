@@ -29,10 +29,18 @@
     #tooltip{
         position: absolute;
         display: none;
-        background: #f2f4f8;
-        color: black;
 
         z-index: 999999;
+    }
+    #tooltip2{
+        position: relative;
+        display: none;
+
+        z-index: 999999;
+    }
+
+    table, td{
+        border: 2px black;
     }
 
 </style>
@@ -48,6 +56,7 @@
     <div id="tooltip">
         <span></span>
     </div>
+
 </div>
 
 
@@ -182,22 +191,70 @@
 
                     tooltipSpan.style.top = (y + 50) + 'px';
                     tooltipSpan.style.left = (x + 50) + 'px';
-                    tooltipSpan.style.color = 'black'
+                    tooltipSpan.style.color = 'fffff'
                     tooltipSpan.style.display = 'flex';
                     tooltipSpan.style.zIndex = '100000';
-                    tooltipSpan.innerHTML = '<div class="row">' +
-                        '<div class="col-md-6">\n' +
-                        '                        <div class="card card-inverse" style="background-color: #333; border-color: #333;">\n' +
-                        '                            <div class="card-header">\n' +
-                        '                                <h4 class="m-b-0 text-white">' + nodes[index].label +  '</h4></div>\n' +
-                        '                            <div class="card-body">\n' +
-                        '                                <h3 class="card-title">Special title treatment</h3>\n' +
-                        '                                <p class="card-text" style="color: white;">With supporting text below as a natural lead-in to additional content.</p>\n' +
-                        '                                <a href="#" class="btn btn-primary">Go somewhere</a>\n' +
-                        '                            </div>\n' +
-                        '                        </div>\n' +
-                        '                    </div>' +
+                    tooltipSpan.innerHTML = '<div class="row">\n' +
+                        '    <div class="col-md-12">\n' +
+                        '            <div class="card card-inverse" style="border-color: #333;">\n' +
+                        '                <div class="card-header" style="background-color:#333">\n' +
+                        '                            <h4 class="m-b-0 text-white">' + nodes[index].label +  '</h4>\n' +
+                        '                </div>\n' +
+                        '                <div class="card-body" style="font-size: 12px; color: #000000" >\n' +
+                        '                    <div class="table-responsive">\n' +
+                        '                        <table class="table table-striped">\n' +
+                        '                            <thead>\n' +
+                        '                            </thead>\n' +
+                        '                            <tbody>\n' +
+                        '                                <tr>\n' +
+                        '                                    <td>Autoship:</td>\n' +
+                        '                                    <td>No</td>\n' +
+                        '                                    <td>Enrollment Date:</td>\n' +
+                        '                                    <td>' + nodes[index].enrolementDate + '</td>\n' +
+                        '                                </tr>\n' +
+                        '                                <tr>\n' +
+                        '                                    <td>Current Rank:</td>\n' +
+                        '                                    <td>' + nodes[index].rank + '</td>\n' +
+                        '                                    <td>Next Rank:</td>\n' +
+                        '                                    <td>' + nodes[index].nextrank + '</td>\n' +
+                        '                                </tr>\n' +
+                        '                                <tr>\n' +
+                        '                                    <td>Active:</td>\n' +
+                        '                                    <td>' + nodes[index].active + '</td>\n' +
+                        '                                    <td>Qualified:</td>\n' +
+                        '                                    <td>' + nodes[index].qualified + '</td>\n' +
+                        '                                </tr>\n' +
+                        '                                <tr>\n' +
+                        '                                    <td>Sponsor ID:</td>\n' +
+                        '                                    <td>' + nodes[index].sponsorid + '</td>\n' +
+                        '                                    <td>Left Current Week PV:</td>\n' +
+                        '                                    <td>0</td>\n' +
+                        '                                </tr>\n' +
+                        '                                <tr>\n' +
+                        '                                    <td>Right Current Week PV:</td>\n' +
+                        '                                    <td>0</td>\n' +
+                        '                                    <td>Left 4 Week PV:</td>\n' +
+                        '                                    <td>0</td>\n' +
+                        '                                </tr>\n' +
+                        '                                <tr>\n' +
+                        '                                    <td>Right 4 Week PV:</td>\n' +
+                        '                                    <td>0</td>\n' +
+                        '                                    <td>Left Leg Total Personal Count:</td>\n' +
+                        '                                    <td>0</td>\n' +
+                        '                                </tr>\n' +
+                        '                                <tr>\n' +
+                        '                                    <td>Right Leg Total Personal Count:</td>\n' +
+                        '                                    <td>0</td>\n' +
+                        '                                </tr>\n' +
+                        '                            </tbody>\n' +
+                        '                        </table>\n' +
+                        '                       </div>\n' +
+                        '                   </div>\n' +
+                        '            </div>\n' +
+                        '    </div>\n' +
                         '</div>'
+
+
                 }
 
 

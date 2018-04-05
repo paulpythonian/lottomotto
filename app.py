@@ -46,6 +46,61 @@ def index():
         return render_template('mainpage/index.html', session= session['logged_in'], rank= i['rank'])
 
 
+
+@app.route('/adminsignup', methods=['GET', 'POST'])
+def adminsignup():
+    if request.method == 'POST':
+
+        users = connection.lottomotto.users
+        api_list = []
+        existing_user = users.find({'$or': [{"username": request.form['username']}, {'email': request.form['email']}]})
+
+        for i in existing_user:
+            api_list.append(str(i))
+        if api_list == []:
+            users.insert({
+                "id": random.randint(1, 10000000000),
+                "username": request.form['username'],
+                "password": bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt()),
+                "firstname": request.form['firstname'],
+                "lastname": request.form['lastname'],
+                "email": request.form['email'],
+                "phone": request.form['phone'],
+                "autoship": False,
+                "leftLeg": 0,
+                "rightLeg": 0,
+                "dateofbirth": "",
+                "gender": "",
+                "ssn": "",
+                "nameofbank": "",
+                "branchnumber": "",
+                "bankaccountnumber": "",
+                "address": "",
+                "city": "",
+                "state": "",
+                'zipcode': 0,
+                "enrollmentDate": time.strftime("%m/%d/%Y"),
+                "rank": 0,
+                "sponsorid": 0,
+                "active": False,
+                "qualified": False,
+                "leftcurrentWeekPV": 0,
+                "rightcurrentWeekPV": 0,
+                "left4weekpv": 0,
+                "right4weekpv": 0,
+                "leftlegtotalpersonalcount": 0,
+                "rightleftotalpersonalcount": 0,
+                "directParent": 0,
+                "sponsortree": []
+            })
+
+            return render_template('pages/login.html')
+        return redirect(url_for('adminsignup'))
+    else:
+        return render_template('pages/adminregister.html')
+
+
+
 @app.route('/signup')
 def signup():
         return render_template("pages/register.html")
@@ -59,12 +114,19 @@ def userSignup(sponsoridnumber):
         sponsorid = int(sponsoridnumber[:-1])
         sponsorside = sponsoridnumber[-1:]
 
+
+
         users = connection.lottomotto.users
         api_list = []
         existing_user = users.find({'$or': [{"username": request.form['username']}, {"email": request.form['email']}]})
         existing_id = users.find()
         id_list = []
         new_user_id = random.randint(1,1000000000)
+
+        current_session = users.find({"username":session.get('logged_in')})
+        current_session_api = []
+        for i in current_session:
+            current_session_api.append(i)
 
         for i in existing_id:
             id_list.append(i['id'])
@@ -94,6 +156,7 @@ def userSignup(sponsoridnumber):
                 "lastname": request.form['lastname'],
                 "email": request.form['email'],
                 "phone": request.form['phone'],
+                "autoship": False,
                 "leftLeg": 0,
                 "rightLeg": 0,
                 "dateofbirth": "",
@@ -117,6 +180,7 @@ def userSignup(sponsoridnumber):
                 "right4weekpv":0,
                 "leftlegtotalpersonalcount":0,
                 "rightleftotalpersonalcount":0,
+                "directParent":current_session_api[0]['id'],
                 "sponsortree":[]
 
             })
@@ -151,11 +215,22 @@ def userSignup(sponsoridnumber):
 
 
 
+
+
             return render_template('pages/login.html')
         return redirect(url_for('signup'))
     else:
+        if not session.get('logged_in'):
+            return render_template('pages/login.html')
+        else:
+            current_session = session.get('logged_in')
+            print(current_session)
 
-        return render_template("pages/register.html", url_extention = sponsoridnumber)
+            return render_template("pages/register.html", session=session['logged_in'], url_extention=sponsoridnumber)
+
+
+
+
 
 
 
@@ -301,6 +376,16 @@ def binaryTreeView():
     else:
         return render_template('treeview/binaryTree.html', session = session['logged_in'])
 
+@app.route('/sponsorTree')
+def sponsorTreeView():
+    if not session.get('logged_in'):
+        return render_template('pages/login.html')
+    else:
+        return render_template('treeview/sponsorTree.html', session = session['logged_in'])
+
+
+
+
 
 
 
@@ -367,6 +452,15 @@ def profile():
 
 
 #######DEF functions########
+
+
+###################################################
+###################################################
+###################################################
+###################################################
+###################Binary Tree View################
+
+
 def userInfoFind(user_id):
     api_list = []
     current_user = []
@@ -399,7 +493,9 @@ def userInfoFind(user_id):
     a['label'] = current_user[0]['username']
     a['rank'] = rank[current_user[0]['rank']]
     a['next_rank'] = rank[current_user[0]['rank'] + 1]
-    a['sponsorid'] = current_user[0]['sponsorid']
+    a['sponsorid'] = current_user[0]['directParent']
+    a['enrolementDate'] = current_user[0]['enrollmentDate']
+
     a['group'] = 'users'
     if (current_user[0]['active']):
         a['active'] = "Yes"
@@ -488,13 +584,14 @@ def userInfoFind(user_id):
                     tempNode['id'] = i['id']
                     tempNode['label'] = i['username']
                     tempNode['rank'] = rank[i['rank']]
-                    tempNode['rank'] = rank[i['rank'] + 1 ]
-                    tempNode['sponsorid'] = i['sponsorid']
+                    tempNode['nextrank'] = rank[i['rank'] + 1 ]
+                    tempNode['sponsorid'] = i['directParent']
+                    tempNode['enrolementDate'] = i['enrollmentDate']
                     tempNode['group'] = 'users'
                     if i['active']:
                         tempNode['active'] = "Yes"
                     else:
-                        a['active'] = 'No'
+                        tempNode['active'] = 'No'
                     if i['qualified']:
                         tempNode['qualified'] = 'Yes'
                     else:
@@ -549,12 +646,125 @@ def userInfoFind(user_id):
 
 
 
+
+
+###################################################
+###################################################
+###################################################
+###################################################
+###########Sponsor Tree View return ###############
+
+def usersponsorInfoFind(user_id):
+    api_list = []
+    current_user = []
+
+    sponsorLegArray = []
+
+
+    node = []
+    edge = []
+    rank = ['Team Member', 'One Star', 'Two Star', 'Three Start', 'Elite', 'Global Elite', 'None']
+
+
+    currentUserDB = connection.lottomotto.users
+    for i in currentUserDB.find({'username': user_id}):
+        current_user.append(i)
+
+    a = {}
+    a['id'] = current_user[0]['id']
+    a['label'] = current_user[0]['username']
+    a['rank'] = rank[current_user[0]['rank']]
+    a['next_rank'] = rank[current_user[0]['rank'] + 1]
+    a['sponsorid'] = current_user[0]['sponsorid']
+    a['group'] = 'users'
+    if (current_user[0]['active']):
+        a['active'] = "Yes"
+    else:
+        a['active'] = "No"
+
+    if (current_user[0]['qualified']):
+        a['qualified'] = "Yes"
+    else:
+        a['qualified'] = "No"
+
+    organization = {}
+    organization['id'] = 0
+    organization['label'] = 'Lotto Motto'
+    organization['group'] = 'organization'
+    organization['chosen'] = 'colorShadow'
+
+    node.append(organization)
+
+    orgEdge = {}
+    orgEdge['from'] = organization['id']
+    orgEdge['to'] = a['id']
+
+    edge.append(orgEdge)
+
+    node.append(a)
+
+
+    db = connection.lottomotto.users
+    for i in db.find():
+        api_list.append(i)
+
+    if(current_user[0]['sponsortree'] != []):
+        sponsorLegArray = sponsorLegArray + current_user[0]['sponsortree']
+
+        while sponsorLegArray != []:
+            for i in api_list:
+                if(i['id'] == sponsorLegArray[0]):
+                    tempNode = {}
+                    tempNode['id'] = i['id']
+                    tempNode['label'] = i['username']
+                    tempNode['rank'] = rank[i['rank']]
+                    tempNode['nextrank'] = rank[i['rank'] + 1]
+                    tempNode['sponsorid'] = i['directParent']
+                    tempNode['group'] = 'users'
+                    if i['active']:
+                        tempNode['active'] = "Yes"
+                    else:
+                        a['active'] = 'No'
+                    if i['qualified']:
+                        tempNode['qualified'] = 'Yes'
+                    else:
+                        tempNode['qualified'] = 'No'
+
+                    node.append(tempNode)
+
+                    tempEdge = {}
+                    tempEdge['from'] = i['directParent']
+                    tempEdge['to'] = tempNode['id']
+
+                    edge.append(tempEdge)
+
+                    if (i['sponsortree'] != []):
+                        sponsorLegArray += i['sponsortree']
+
+                    del sponsorLegArray[0]
+                    break
+
+
+
+
+
+
+        return jsonify({"node": node, "edge": edge})
+
+
+
+
 ########API########################
 #######DEF#########################
 
 @app.route('/api/v1/users/<string:user_id>', methods=['GET'])
 def get_userInfo(user_id):
     return userInfoFind(user_id)
+
+
+@app.route('/api/v2/users/<string:user_id>', methods=['GET'])
+def get_user_sponsorTree_info(user_id):
+    return usersponsorInfoFind(user_id)
 
 
 

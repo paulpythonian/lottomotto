@@ -2,11 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0efec2b8-d6ce-40c6-86ba-1f0650d91e87" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/templates/pages/adminregister.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/react/home" beforeDir="false" afterPath="$PROJECT_DIR$/static/react/home" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/pages/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/pages/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/layout.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/treeview/binaryTree.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/treeview/binaryTree.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/treeview/sponsorTree.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/treeview/sponsorTree.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -31,11 +33,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="app.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="sponsorTree.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/templates/treeview/sponsorTree.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-58">
+              <caret line="182" column="60" lean-forward="true" selection-start-line="182" selection-start-column="60" selection-end-line="182" selection-end-column="60" />
+              <folding>
+                <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#p#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="app.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="655">
-              <caret line="155" column="9" selection-start-line="155" selection-start-column="9" selection-end-line="155" selection-end-column="9" />
+            <state relative-caret-position="547">
+              <caret line="593" column="49" lean-forward="true" selection-start-line="593" selection-start-column="49" selection-end-line="593" selection-end-column="49" />
               <folding>
                 <element signature="e#2#86#0" expanded="true" />
               </folding>
@@ -55,6 +70,15 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="adminregister.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/pages/adminregister.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="690">
+              <caret line="46" column="103" selection-start-line="46" selection-start-column="103" selection-end-line="46" selection-end-column="103" />
+            </state>
+          </provider>
+        </entry>
+      </file>
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
@@ -69,7 +93,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>bit</find>
       <find>home</find>
       <find>=&quot;#&quot;</find>
       <find>Logou</find>
@@ -98,6 +121,7 @@
       <find>_self</find>
       <find>sponsoridnu</find>
       <find>newNodeObject</find>
+      <find>binary</find>
       <find>sponsor</find>
     </findStrings>
     <replaceStrings>
@@ -115,8 +139,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/static/indexpage/package.json" />
-        <option value="$PROJECT_DIR$/static/css/style.css" />
         <option value="$PROJECT_DIR$/static/react/home/.babelrc" />
         <option value="$PROJECT_DIR$/static/react/home/js/actions/index.html" />
         <option value="$PROJECT_DIR$/static/react/home/js/actions/index.js" />
@@ -154,7 +176,6 @@
         <option value="$PROJECT_DIR$/static/react/treeview/webpack.config.js" />
         <option value="$PROJECT_DIR$/static/react/treeview/.babelrc" />
         <option value="$PROJECT_DIR$/static/react/treeview/src/js/containers/userTree.js" />
-        <option value="$PROJECT_DIR$/templates/layout.html" />
         <option value="$PROJECT_DIR$/static/react/home/package.json" />
         <option value="$PROJECT_DIR$/static/react/home/src/js/components/rankQualification.js" />
         <option value="$PROJECT_DIR$/static/react/home/src/js/components/Volume.js" />
@@ -163,9 +184,12 @@
         <option value="$PROJECT_DIR$/static/react/home/src/js/components/App.js" />
         <option value="$PROJECT_DIR$/templates/mainpage/index.html" />
         <option value="$PROJECT_DIR$/templates/documents/productDetail.html" />
-        <option value="$PROJECT_DIR$/templates/treeview/binaryTree.html" />
         <option value="$PROJECT_DIR$/templates/pages/register.html" />
+        <option value="$PROJECT_DIR$/templates/layout.html" />
+        <option value="$PROJECT_DIR$/templates/pages/adminregister.html" />
+        <option value="$PROJECT_DIR$/templates/treeview/sponsorTree.html" />
         <option value="$PROJECT_DIR$/app.py" />
+        <option value="$PROJECT_DIR$/templates/treeview/binaryTree.html" />
       </list>
     </option>
   </component>
@@ -179,7 +203,7 @@
     <handled-path value="$PROJECT_DIR$/static/react/home/node_modules" />
     <handled-path value="$PROJECT_DIR$/static/react/treeview/node_modules" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="6" fullScreen="true">
+  <component name="ProjectFrameBounds" fullScreen="true">
     <option name="width" value="1680" />
     <option name="height" value="1050" />
   </component>
@@ -214,33 +238,6 @@
               <item name="static" type="462c0819:PsiDirectoryNode" />
               <item name="react" type="462c0819:PsiDirectoryNode" />
               <item name="home" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="LottoMotto" type="b2602c69:ProjectViewProjectNode" />
-              <item name="LottoMotto" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="react" type="462c0819:PsiDirectoryNode" />
-              <item name="home" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="LottoMotto" type="b2602c69:ProjectViewProjectNode" />
-              <item name="LottoMotto" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="react" type="462c0819:PsiDirectoryNode" />
-              <item name="home" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="LottoMotto" type="b2602c69:ProjectViewProjectNode" />
-              <item name="LottoMotto" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="react" type="462c0819:PsiDirectoryNode" />
-              <item name="home" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="LottoMotto" type="b2602c69:ProjectViewProjectNode" />
@@ -299,11 +296,11 @@
       <recent name="$PROJECT_DIR$/static/react/home/src" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/templates/pages" />
+      <recent name="$PROJECT_DIR$/templates/treeview" />
       <recent name="$PROJECT_DIR$/static/js/qtip" />
       <recent name="$PROJECT_DIR$/static/js" />
       <recent name="$PROJECT_DIR$/static/react/treeview/src" />
-      <recent name="$PROJECT_DIR$/static/react/treeview" />
-      <recent name="$PROJECT_DIR$/templates/documents" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -332,8 +329,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1680" height="1050" extended-state="6" />
-    <editor active="true" />
+    <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5063898" side_tool="true" weight="0.33763653" />
@@ -361,29 +357,29 @@
       <window_info anchor="bottom" id="Find" order="1" weight="0.32958034" />
     </layout>
     <layout-to-restore>
-      <window_info anchor="bottom" id="Version Control" order="12" show_stripe_button="false" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Docker" order="11" show_stripe_button="false" />
       <window_info anchor="bottom" id="Run" order="2" />
-      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="right" id="SciView" order="5" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="right" id="R Graphics" order="6" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32958034" />
       <window_info anchor="right" id="R Packages" order="3" />
-      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Python Console" order="9" weight="0.3286991" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17704518" />
       <window_info anchor="right" id="Database" order="4" />
       <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.4957265" visible="true" weight="0.16990788" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50427353" side_tool="true" weight="0.3776868" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Version Control" order="12" show_stripe_button="false" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="File Transfer" order="8" weight="0.32958034" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32958034" />
-      <window_info anchor="bottom" id="Python Console" order="9" weight="0.3286991" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info id="Favorites" order="2" side_tool="true" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -405,20 +401,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/templates/layout.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8475">
-          <caret line="565" column="60" selection-start-line="565" selection-start-column="60" selection-end-line="565" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/mainpage/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" selection-start-line="5" selection-end-line="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/react/home/src/main.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -670,20 +652,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/treeview/binaryTree.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="179" column="49" lean-forward="true" selection-start-line="179" selection-start-column="49" selection-end-line="179" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/layout.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="565" column="60" selection-start-line="565" selection-start-column="60" selection-end-line="565" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/mainpage/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -705,6 +673,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/templates/layout.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="358" column="53" selection-start-line="358" selection-start-column="53" selection-end-line="358" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/templates/pages/register.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="106">
@@ -715,12 +690,44 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/templates/pages/adminregister.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="690">
+          <caret line="46" column="103" selection-start-line="46" selection-start-column="103" selection-end-line="46" selection-end-column="103" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="655">
-          <caret line="155" column="9" selection-start-line="155" selection-start-column="9" selection-end-line="155" selection-end-column="9" />
+        <state relative-caret-position="547">
+          <caret line="593" column="49" lean-forward="true" selection-start-line="593" selection-start-column="49" selection-end-line="593" selection-end-column="49" />
           <folding>
             <element signature="e#2#86#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/treeview/binaryTree.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="460">
+          <caret line="54" column="31" selection-start-line="54" selection-start-column="31" selection-end-line="54" selection-end-column="31" />
+          <folding>
+            <element signature="e#1004#1132#0" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/treeview/sponsorTree.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-58">
+          <caret line="182" column="60" lean-forward="true" selection-start-line="182" selection-start-column="60" selection-end-line="182" selection-end-column="60" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
