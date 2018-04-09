@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0efec2b8-d6ce-40c6-86ba-1f0650d91e87" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/LottoMotto.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/LottoMotto.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/react/home" beforeDir="false" afterPath="$PROJECT_DIR$/static/react/home" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/mainpage/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/mainpage/index.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -45,8 +40,8 @@
       <file leaf-file-name="app.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="38">
-              <caret line="805" lean-forward="true" selection-start-line="805" selection-end-line="805" />
+            <state relative-caret-position="139">
+              <caret line="785" lean-forward="true" selection-start-line="785" selection-end-line="785" />
               <folding>
                 <element signature="e#2#86#0" expanded="true" />
               </folding>
@@ -421,8 +416,8 @@
       <window_info anchor="bottom" id="Version Control" order="13" weight="0.3283582" />
       <window_info anchor="bottom" id="Python Console" order="10" weight="0.3286991" />
       <window_info anchor="bottom" id="Run" order="2" />
-      <window_info active="true" anchor="bottom" x="1249" y="-457" width="1920" height="1035" id="Terminal" order="11" sideWeight="0.49361023" visible="true" weight="0.8557214" />
-      <window_info content_ui="combo" id="Project" order="0" weight="0.15495208" />
+      <window_info active="true" anchor="bottom" x="1249" y="-457" width="1920" height="1035" id="Terminal" order="11" sideWeight="0.49361023" visible="true" weight="0.35721394" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15495208" />
       <window_info anchor="right" id="R Packages" order="3" />
       <window_info anchor="bottom" id="Docker" order="12" show_stripe_button="false" />
       <window_info anchor="right" id="R Graphics" order="6" />
@@ -774,8 +769,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="805" lean-forward="true" selection-start-line="805" selection-end-line="805" />
+        <state relative-caret-position="139">
+          <caret line="785" lean-forward="true" selection-start-line="785" selection-end-line="785" />
           <folding>
             <element signature="e#2#86#0" expanded="true" />
           </folding>
