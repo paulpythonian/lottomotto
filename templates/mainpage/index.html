@@ -9,7 +9,16 @@
 
 
 <script>
-    window.rank = {{ rank }}
+    window.initialData = [
+        '{{ active }}',
+        {{shortTerm|tojson}},
+    {{longTerm5|tojson}},
+    {{longTerm4|tojson}},
+    {{longTerm3|tojson}},
+    {{longTerm2|tojson}},
+    {{longTerm1|tojson}},
+    ]
+
 </script>
 
 <script src="{{ url_for('static', filename='./react/home/dist/bundle.js',) }}"></script>

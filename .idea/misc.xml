@@ -3,5 +3,5 @@
   <component name="JavaScriptSettings">
     <option name="languageLevel" value="JSX" />
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="Remote Python 3.6.4 (sftp://ubuntu@ec2-54-196-19-43.compute-1.amazonaws.com:22/home/ubuntu/venv/bin/python3.6)" project-jdk-type="Python SDK" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="Remote Python 3.6.4 (sftp://ubuntu@ec2-54-196-19-43.compute-1.amazonaws.com:22/home/ubuntu/venv/bin/python)" project-jdk-type="Python SDK" />
 </project>

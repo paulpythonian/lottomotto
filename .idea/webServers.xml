@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="ae0f46dc-37be-4724-915e-39c9f1601d05" name="ec2lottomotto" url="http://ec2-54-196-19-43.compute-1.amazonaws.com">
+        <fileTransfer host="ec2-54-196-19-43.compute-1.amazonaws.com" port="22" privateKey="$USER_HOME$/.ssh/sungbinsshkey.pem" rootFolder="/home/ubuntu" accessType="SFTP" keyPair="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

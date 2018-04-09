@@ -19,9 +19,10 @@ from flask_jsglue import JSGlue
 
 
 from pymongo import MongoClient
-
+import pymongo
 
 connection = MongoClient("mongodb://hsb0104:Paul371621@lottomotto-shard-00-00-sbmpm.mongodb.net:27017,lottomotto-shard-00-01-sbmpm.mongodb.net:27017,lottomotto-shard-00-02-sbmpm.mongodb.net:27017/test?ssl=true&replicaSet=lottomotto-shard-0&authSource=admin")
+#connection = MongoClient("mongodb://127.0.0.1:27017/db")
 app = Flask(__name__)
 jsglue = JSGlue(app)
 app.config.from_object(__name__)
@@ -35,69 +36,69 @@ def index():
         return render_template('pages/login.html')
     else:
         api_list = []
+        short_term_api_info =[]
         db = connection.lottomotto.users
-        currentUser = db.find({'username':session['logged_in']})
+        currentUser = db.find({'username': session['logged_in']})
+
+        crypto = connection.lottomotto.shortTermCryptocurrency
+        LongTermCrypto = connection.lottomotto.longTermCryptocurrency
+        shortTermInfo = crypto.find().sort('updateTime', pymongo.DESCENDING).limit(15)
+
+
+        for i in shortTermInfo:
+            tempObject = {}
+            tempObject['updateTime'] = i['updateTime']
+            tempObject['market'] = i['market']
+            tempObject['buy'] = i['buy']
+            tempObject['stop'] = i['stop']
+            tempObject['profitTarget'] = i['profitTarget']
+            tempObject['recommendation'] = i['recommendation']
+            short_term_api_info.append(tempObject)
+
+        fiveStarInfo = LongTermCrypto.find({'selection': "5"})
+        longTerm5 = []
+        for i in fiveStarInfo:
+            info = i['info']
+            longTerm5.append(info)
+
+        fiveStarInfo = LongTermCrypto.find({'selection': "4"})
+        longTerm4 = []
+        for i in fiveStarInfo:
+            info = i['info']
+            longTerm4.append(info)
+
+        fiveStarInfo = LongTermCrypto.find({'selection': "3"})
+        longTerm3 = []
+        for i in fiveStarInfo:
+            info = i['info']
+            longTerm3.append(info)
+
+        fiveStarInfo = LongTermCrypto.find({'selection': "2"})
+        longTerm2 = []
+        for i in fiveStarInfo:
+            info = i['info']
+            longTerm2.append(info)
+
+        fiveStarInfo = LongTermCrypto.find({'selection': "1"})
+        longTerm1 = []
+        for i in fiveStarInfo:
+            info = i['info']
+            longTerm1.append(info)
+
+
+
 
         for i in currentUser:
             api_list.append(i)
 
-        print(i)
+        # if api_list != []:
+        #     if api_list[0]['active']:
+        #         pass
+        #     else:
+        #         short_term_api_info = []
 
-        return render_template('mainpage/index.html', session= session['logged_in'], rank= i['rank'])
+        return render_template('mainpage/index.html', session= session['logged_in'], active=api_list[0]['active'], shortTerm=short_term_api_info, longTerm5 = longTerm5, longTerm4 = longTerm4, longTerm3 = longTerm3, longTerm2 = longTerm2, longTerm1 = longTerm1,   )
 
-
-
-@app.route('/adminsignup', methods=['GET', 'POST'])
-def adminsignup():
-    if request.method == 'POST':
-
-        users = connection.lottomotto.users
-        api_list = []
-        existing_user = users.find({'$or': [{"username": request.form['username']}, {'email': request.form['email']}]})
-
-        for i in existing_user:
-            api_list.append(str(i))
-        if api_list == []:
-            users.insert({
-                "id": random.randint(1, 10000000000),
-                "username": request.form['username'],
-                "password": bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt()),
-                "firstname": request.form['firstname'],
-                "lastname": request.form['lastname'],
-                "email": request.form['email'],
-                "phone": request.form['phone'],
-                "autoship": False,
-                "leftLeg": 0,
-                "rightLeg": 0,
-                "dateofbirth": "",
-                "gender": "",
-                "ssn": "",
-                "nameofbank": "",
-                "branchnumber": "",
-                "bankaccountnumber": "",
-                "address": "",
-                "city": "",
-                "state": "",
-                'zipcode': 0,
-                "enrollmentDate": time.strftime("%m/%d/%Y"),
-                "rank": 0,
-                "sponsorid": 0,
-                "active": False,
-                "qualified": False,
-                "leftcurrentWeekPV": 0,
-                "rightcurrentWeekPV": 0,
-                "left4weekpv": 0,
-                "right4weekpv": 0,
-                "leftlegtotalpersonalcount": 0,
-                "rightleftotalpersonalcount": 0,
-                "directParent": 0,
-                "sponsortree": []
-            })
-
-            return render_template('pages/login.html')
-        return redirect(url_for('adminsignup'))
-    else:
-        return render_template('pages/adminregister.html')
 
 
 
@@ -181,7 +182,8 @@ def userSignup(sponsoridnumber):
                 "leftlegtotalpersonalcount":0,
                 "rightleftotalpersonalcount":0,
                 "directParent":current_session_api[0]['id'],
-                "sponsortree":[]
+                "sponsortree":[],
+                "pvlist": []
 
             })
 
@@ -207,8 +209,14 @@ def userSignup(sponsoridnumber):
                 sponsorTreeObject.append(i)
 
             if sponsorTreeObject != []:
+
+                pvobject = {}
+                pvobject['time'] = time.strftime("%m/%d/%Y")
+                pvobject['value'] = 300
+
                 sponsorTree = sponsorTreeObject[0]
                 sponsorTree['sponsortree'].append(new_user_id)
+                sponsorTree['pvlist'].append(pvobject)
                 users.update({'username': session['logged_in']}, {'$set': sponsorTree})
 
 
@@ -797,4 +805,4 @@ def invalid_request(error):
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000)
